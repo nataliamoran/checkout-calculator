@@ -1,16 +1,14 @@
 const express = require('express');
 const path = require('path');
 
+const apiRouter = require('./api-router');
+
 const app = express();
 
 // serve static files from React app
 app.use(express.static(path.join(__dirname, '../build')));
 
-app.get('/api/cart', (req, res) => {
-    res.json({
-        cart: []
-    })
-});
+app.use('/api', apiRouter);
 
 // catchall handler => index.html
 app.use('*', (req, res) => {
