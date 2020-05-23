@@ -6,7 +6,7 @@
   ],
   "engines": {
     "node": "12.13.x"
-  },  
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
