@@ -1,9 +1,14 @@
-const express = require('express');
 const path = require('path');
+
+const express = require('express');
+const bodyParser = require('body-parser');
 
 const apiRouter = require('./api-router');
 
 const app = express();
+
+// body parser middleware
+app.use(bodyParser.json());
 
 // serve static files from React app
 app.use(express.static(path.join(__dirname, '../build')));

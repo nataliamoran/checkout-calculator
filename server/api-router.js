@@ -1,17 +1,40 @@
 const { Router } = require('express');
 
+const toCurrency = require('./utils/to-currency'); 
+
 const routes = Router();
 
-routes.get('/cart', (req, res) => {
-    const cart = {
-        items: [],
-        summary: {
-            subtotal: 0,
-            tax: 0,
-            total: 0
-        }
-    };
+// default cart : empty state
+let cart = {
+    items: [],
+    summary: {
+        subtotal: 0,
+        tax: 0,
+        total: 0
+    }
+};
 
+routes.get('/cart', (req, res) => {
+    res.status(200).json(cart);
+});
+
+routes.put('/cart', (req, res) => {
+    const items = req.body.items;
+
+    const subtotal = toCurrency(items.reduce(
+        (acc, item) => {
+            return acc + (item.quantity * item.price);
+        },
+        0
+    ));
+
+    // for now, assume tax rate is always 13%
+    const taxRate = 0.13;
+    const tax = toCurrency(subtotal * taxRate);
+    const total = toCurrency(subtotal + tax);
+    const summary = { subtotal, tax, total };
+
+    cart = { items, summary };
     res.status(200).json(cart);
 });
 
