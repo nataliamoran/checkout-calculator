@@ -14,7 +14,7 @@ app.use('/api', apiRouter);
 
 // catchall handler => index.html
 app.use('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build/index.html'));
+  res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
 module.exports = app;
