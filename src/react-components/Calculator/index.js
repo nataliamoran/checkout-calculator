@@ -134,9 +134,9 @@ class Calculator extends React.Component {
     let cartItems;
     let summary;
     // eslint-disable-next-line react/destructuring-assignment
-    if (this.state.items == null) {
-      return <div />;
-    }
+    // if (this.state.items == null) {
+    //   return <div />;
+    // }
 
     const {
       cart, items, chosenQuantity, discount, itemsInCart,
