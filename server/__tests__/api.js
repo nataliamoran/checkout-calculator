@@ -41,15 +41,15 @@ describe('API E2E tests', () => {
       const requestBody = {
         items: [{
           id: 1,
-          name: 'Apple, Gala (1 lb)',
-          price: 0.79,
+          label: 'Apple, Gala (1 lb)',
+          value: 0.79,
           imageUrl: 'https://i5.walmartimages.ca/images/Enlarge/094/514/6000200094514.jpg',
           quantity: 10,
         },
         {
           id: 2,
-          name: 'Pear, Anjou (1 lb)',
-          price: 1.13,
+          label: 'Pear, Anjou (1 lb)',
+          value: 1.13,
           imageUrl: 'https://i5.walmartimages.ca/images/Large/799/2_r/6000196087992_R.jpg',
           quantity: 1,
         }],
@@ -77,15 +77,15 @@ describe('API E2E tests', () => {
       const requestBody = {
         items: [{
           id: 1,
-          name: 'Apple, Gala (1 lb)',
-          price: 0.79,
+          label: 'Apple, Gala (1 lb)',
+          value: 0.79,
           imageUrl: 'https://i5.walmartimages.ca/images/Enlarge/094/514/6000200094514.jpg',
           quantity: 10,
         },
         {
           id: 2,
-          name: 'Pear, Anjou (1 lb)',
-          price: 1.13,
+          label: 'Pear, Anjou (1 lb)',
+          value: 1.13,
           imageUrl: 'https://i5.walmartimages.ca/images/Large/799/2_r/6000196087992_R.jpg',
           quantity: 1,
         }],
