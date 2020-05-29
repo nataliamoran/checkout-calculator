@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField/TextField';
 import Button from '@material-ui/core/Button/Button';
 import { GiShoppingCart } from 'react-icons/gi';
 import { uid } from 'react-uid';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import {
   Default, Desktop, Mobile, Tablet,
 } from '../../actions/checkScreenSize';
@@ -21,7 +22,8 @@ class Calculator extends React.Component {
       itemsInCart: [],
       chosenItem: null,
       chosenQuantity: null,
-      discount: null,
+      discount: 0,
+      checkoutMode: false,
     };
   }
 
@@ -72,12 +74,26 @@ class Calculator extends React.Component {
   }
 
   addItemToCart(state) {
+    if (!state.chosenItem || !state.chosenQuantity) {
+      NotificationManager.error('Please choose an item and its quantity');
+      return;
+    }
+    if (state.chosenQuantity <= 0) {
+      NotificationManager.error('Please choose a positive quantity');
+      return;
+    }
+    const itemAlreadyInCart = state.itemsInCart.filter(
+      (item) => item.label === state.chosenItem.label,
+    );
+    if (itemAlreadyInCart.length !== 0) {
+      NotificationManager.error('This item is already in the cart');
+      return;
+    }
     const item = state.chosenItem;
     const items = state.itemsInCart;
     item.quantity = state.chosenQuantity;
     items.push(item);
     this.setState({
-      chosenItem: item,
       itemsInCart: items,
     });
   }
@@ -99,11 +115,20 @@ class Calculator extends React.Component {
       itemsInCart: [],
       chosenItem: null,
       chosenQuantity: null,
-      discount: null,
+      discount: 0,
+      checkoutMode: false,
     });
   }
 
   checkout(state) {
+    if (state.discount < 0) {
+      NotificationManager.error('Please enter a positive value for the discount');
+      return;
+    }
+    if (state.discount >= 1) {
+      NotificationManager.error('Please enter a value smaller than 1 for the discount');
+      return;
+    }
     const data = {
       items: state.itemsInCart,
       discountRate: state.discount,
@@ -121,6 +146,7 @@ class Calculator extends React.Component {
       .then((json) => {
         this.setState({
           cart: json,
+          checkoutMode: true,
         });
       })
       .catch(() => {
@@ -133,13 +159,10 @@ class Calculator extends React.Component {
     let checkoutButton;
     let cartItems;
     let summary;
-    // eslint-disable-next-line react/destructuring-assignment
-    // if (this.state.items == null) {
-    //   return <div />;
-    // }
+    let addItemFields;
 
     const {
-      cart, items, chosenQuantity, discount, itemsInCart,
+      cart, items, chosenQuantity, discount, itemsInCart, checkoutMode,
     } = this.state;
 
     if (itemsInCart.length !== 0 && (cart == null || cart.summary.total === 0)) {
@@ -156,9 +179,57 @@ class Calculator extends React.Component {
       );
     }
 
-    if (cart && cart.summary.total !== 0) {
+    if (!checkoutMode) {
+      addItemFields = (
+        <div>
+          <div className="items">
+            <h4>Which item?</h4>
+            <Select
+              options={items}
+              onChange={(opt) => this.handleItemInput('chosenItem', opt)}
+            />
+          </div>
+          <div className="chosen-quantity">
+            <h4>How many?</h4>
+            <TextField
+              name="chosenQuantity"
+              value={chosenQuantity}
+              onChange={(e) => this.handleChange(e.target.name, e.target.value)}
+              className="quantity-input"
+              type="number"
+              variant="outlined"
+            />
+
+            <Button
+              variant="outlined"
+              color="primary"
+              className="add-button"
+              onClick={() => this.addItemToCart(this.state)}
+            >
+              Add
+            </Button>
+
+          </div>
+          <div className="discount">
+            <h4>Discount</h4>
+            <TextField
+              name="discount"
+              value={discount}
+              onChange={(e) => this.handleChange(e.target.name, e.target.value)}
+              className="discount-input"
+              type="number"
+              variant="outlined"
+            />
+            <p> Discount example: 0.5</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (checkoutMode) {
       summary = (
         <div>
+          <h2>Payment Due:</h2>
           <p>
             {'Discount: '}
             {cart.summary.discount}
@@ -203,15 +274,18 @@ class Calculator extends React.Component {
                   {'  x  '}
                   {item.value}
                 </span>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  className="remove-button"
-                  onClick={() => this.removeItemFromCart(this.state, item)}
-                >
-                  Remove
-                </Button>
-
+                {checkoutMode
+                  ? null
+                  : (
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      className="remove-button"
+                      onClick={() => this.removeItemFromCart(this.state, item)}
+                    >
+                      Remove
+                    </Button>
+                  )}
               </div>
             </div>
           ),
@@ -221,45 +295,12 @@ class Calculator extends React.Component {
     return (
       <div className="calculator-app">
         <h1 className="calculator-title"> Checkout Calculator </h1>
+        <div className="notification">
+          <NotificationContainer />
+        </div>
         <div className="calculator">
           <div className="items-calculator">
-            <div className="items">
-              <h4>Which item?</h4>
-              <Select
-                options={items}
-                onChange={(opt) => this.handleItemInput('chosenItem', opt)}
-              />
-            </div>
-            <div className="chosen-quantity">
-              <h4>How many?</h4>
-              <TextField
-                name="chosenQuantity"
-                value={chosenQuantity}
-                onChange={(e) => this.handleChange(e.target.name, e.target.value)}
-                className="quantity-input"
-                type="number"
-                variant="outlined"
-              />
-              <Button
-                variant="outlined"
-                color="primary"
-                className="add-button"
-                onClick={() => this.addItemToCart(this.state)}
-              >
-                Add
-              </Button>
-            </div>
-            <div className="discount">
-              <h4>Discount</h4>
-              <TextField
-                name="discount"
-                value={discount}
-                onChange={(e) => this.handleChange(e.target.name, e.target.value)}
-                className="discount-input"
-                type="number"
-                variant="outlined"
-              />
-            </div>
+            {addItemFields}
             {checkoutButton}
             {summary}
           </div>

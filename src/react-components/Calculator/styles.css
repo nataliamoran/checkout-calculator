@@ -43,6 +43,9 @@
   margin-bottom: 10px;
 }
 
+.notification{
+  color: red;
+}
 
 /* DESKTOP */
 @media (min-width: 992px) {
