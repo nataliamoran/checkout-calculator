@@ -16,5 +16,5 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.0.4
         with:
           heroku_api_key: "ffb1d2cd-3e0f-4ccf-b41f-4688e8519f7c"
-          heroku_app_name: "afternoon-brook-48620"
+          heroku_app_name: "csc301-a1-nmab"
           heroku_email: "ashwin.balamohan@utoronto.ca"
