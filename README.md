@@ -1,4 +1,43 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+# App usage guidelines
+
+* When clicking the 'which item?' a list of items will be shown, select the item you want to add to your cart.
+  * On mobile, if 'which item?' does not appear, it means the `baseUrl` in `a1-mobile/src/config.js` is not available.
+  * On web, if 'which item?' appears with no items, it means the `baseUrl` in `src/config.js` is not available.
+* Enter the quantity you want to add - bigger than 0
+* Click 'add item' to add the item to the cart
+  * An error message will be shown if item or quantity are not chosen
+  * An error message will be shown if quantity is smaller than 1
+  * An error message will be shown if item type is already added to cart
+* You should see the items added to the cart
+* If you wish to remove an item from the cart, click the remove button.
+* After finalizing your cart, enter the desired discount - a number between 0-1.
+* Click checkout
+  * An error message will be shown if discount is not between 0-1
+  * See the calculation for your order
+* To start a new calculation, click 'start new cart'.
+
+# To build mobile app
+
+All mobile app code is under `a1-mobile` and all commands should be run from that folder.
+
+Update `a1-mobile/src/config.js` to use the relevant baseUrl,
+e.g, for production environment, use:
+```
+const BASE_URL = 'https://csc301-a1-nmab.herokuapp.com/api';
+```
+
+### Run mobile app in web browser
+Run `ionic serve`
+
+### Build apk file and install on device
+Run `ionic capacitor build android`.
+
+Under `./android/app/build/outputs/apk/debug` you will have `app-debug.apk`.
+
+To install in emulator, drag the apk file to the emulator.
+
+# Web development
 
 ## Available Scripts
 
@@ -26,43 +65,3 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
