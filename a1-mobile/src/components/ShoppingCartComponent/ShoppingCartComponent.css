@@ -1,0 +1,14 @@
+#cart-icon {
+  font-size: 3em;
+  font-weight: bold;
+  color: red;
+}
+
+.center {
+  text-align: center;
+}
+
+.delete-icon{
+  font-weight: bold;
+  font-size: 2em;
+}
