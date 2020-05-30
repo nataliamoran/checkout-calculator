@@ -1,0 +1,20 @@
+# This workflow will do a deploy from the master branch to the prod server
+# it will be run whenever any tag is created
+
+name: deploy_prod
+
+on:
+  create:
+    tags:
+      - v*
+
+jobs:
+  deploy_prod:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.0.4
+        with:
+          heroku_api_key: "ffb1d2cd-3e0f-4ccf-b41f-4688e8519f7c"
+          heroku_app_name: "afternoon-brook-48620"
+          heroku_email: "ashwin.balamohan@utoronto.ca"
