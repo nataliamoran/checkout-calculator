@@ -7,9 +7,6 @@ import Button from '@material-ui/core/Button/Button';
 import { GiShoppingCart } from 'react-icons/gi';
 import { uid } from 'react-uid';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
-import {
-  Default, Desktop, Mobile, Tablet,
-} from '../../actions/checkScreenSize';
 import { CART, ITEMS } from '../../config';
 
 class Calculator extends React.Component {
@@ -28,20 +25,7 @@ class Calculator extends React.Component {
   }
 
   componentDidMount() {
-    // this.getCart();
     this.getItems();
-  }
-
-  getCart() {
-    fetch(CART)
-      .then((response) => response.json())
-      .then((json) => {
-        this.setState({
-          cart: json,
-        });
-      })
-      .catch(() => {
-      });
   }
 
   getItems() {
@@ -51,13 +35,9 @@ class Calculator extends React.Component {
         this.setState({
           items: json,
         });
-        // console.group('Calculator State');
-        // console.log(this.state);
-        // console.groupEnd();
         this.forceUpdate();
       })
       .catch(() => {
-      // console.error(error);
       });
   }
 
@@ -150,7 +130,6 @@ class Calculator extends React.Component {
         });
       })
       .catch(() => {
-      // console.error(error);
       });
   }
 
@@ -309,11 +288,6 @@ class Calculator extends React.Component {
             {yourCartIsEmpty}
             {cartItems}
           </div>
-          <Default> </Default>
-          <Desktop> </Desktop>
-          <Tablet> </Tablet>
-          <Mobile> </Mobile>
-
         </div>
       </div>
     );

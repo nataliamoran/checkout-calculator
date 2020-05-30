@@ -2,7 +2,7 @@
   "name": "assignment1_pair-1-abmohan-nataliamoran",
   "authors": [
     "Natlia Moran <natalia.moran@mail.utoronto.ca>",
-    "Ashwin Balamohan <ashwin.balamohan@utoronto.ca>"
+    "Ashwin Balamohan <ashwin.balamohan@mail.utoronto.ca>"
   ],
   "engines": {
     "node": "12.13.x"
@@ -42,7 +42,7 @@
   "scripts": {
     "build": "react-scripts build",
     "clean": "rimraf build",
-    "ci": "npm run lint && npm build && cross-env CI=true npm test",
+    "ci": "npm run lint && npm run build && cross-env CI=true npm test",
     "eject": "react-scripts eject",
     "lint": "eslint server src",
     "prebuild": "npm run clean",
