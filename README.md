@@ -24,9 +24,15 @@ Mobile: https://youtu.be/Nyif3UUj6Dg
   * See the calculation for your order
 * To start a new calculation, click 'start new cart'.
 
-# To build mobile app
+# Mobile app
 
 All mobile app code is under `a1-mobile` and all commands should be run from that folder.
+
+Production APK is under `a1-mobile/apk`
+
+To install in emulator, drag the apk file to the emulator.
+
+### Base URL
 
 Update `a1-mobile/src/config.js` to use the relevant baseUrl,
 e.g, for production environment, use:
@@ -37,12 +43,11 @@ const BASE_URL = 'https://csc301-a1-nmab.herokuapp.com/api';
 ### Run mobile app in web browser
 Run `ionic serve`
 
-### Build apk file and install on device
+### Build apk file 
 Run `ionic capacitor build android`.
 
 Under `./android/app/build/outputs/apk/debug` you will have `app-debug.apk`.
 
-To install in emulator, drag the apk file to the emulator.
 
 # Web app - local development
 
