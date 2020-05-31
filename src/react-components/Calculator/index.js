@@ -17,8 +17,8 @@ class Calculator extends React.Component {
       cart: null,
       items: null,
       itemsInCart: [],
-      chosenItem: null,
-      chosenQuantity: null,
+      chosenItem: ' ',
+      chosenQuantity: 0,
       discount: 0,
       checkoutMode: false,
     };
@@ -210,19 +210,19 @@ class Calculator extends React.Component {
         <div>
           <h2>Payment Due:</h2>
           <p>
-            {'Discount: '}
-            {cart.summary.discount}
-          </p>
-          <p>
-            {'Subtotal: '}
+            Subtotal: $
             {cart.summary.subtotal}
           </p>
           <p>
-            {'Tax: '}
+            Discount: $
+            {cart.summary.discount}
+          </p>
+          <p>
+            Tax: $
             {cart.summary.tax}
           </p>
           <p>
-            {'Total: '}
+            Total: $
             {cart.summary.total}
           </p>
           <Button
@@ -250,7 +250,7 @@ class Calculator extends React.Component {
                   {item.label}
                   {'  :  '}
                   {item.quantity}
-                  {'  x  '}
+                  {'  x  $'}
                   {item.value}
                 </span>
                 {checkoutMode

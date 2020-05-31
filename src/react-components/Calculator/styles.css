@@ -48,7 +48,7 @@
 }
 
 /* DESKTOP */
-@media (min-width: 992px) {
+@media (min-width: 1025px) {
   .items-calculator{
     margin-left: 20%;
     width: 400px;
@@ -59,7 +59,8 @@
   }
 
   .cart{
-    padding-left: 10%;
+    margin-left: 10%;
+    margin-right: 5%;
     min-width: 200px;
   }
 
@@ -74,7 +75,7 @@
 }
 
 /* TABLET */
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .items {
     margin-left: auto;
     margin-right: auto;
@@ -93,6 +94,7 @@
 
   .cart{
     padding-top: 30px;
+    padding-right: 20px;
   }
 
   .remove-button {
