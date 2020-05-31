@@ -1,5 +1,6 @@
-// defaults to local server (started by running `npm run server`)
-const BASE_URL = process.env.BASE_URL || 'http://localhost:5000';
+const BASE_URL = window.location.origin.match(/localhost/)
+  ? 'http://localhost:5000'
+  : window.location.origin;
 
 const API_ROOT = 'api';
 export const CART = `${BASE_URL}/${API_ROOT}/cart`;
